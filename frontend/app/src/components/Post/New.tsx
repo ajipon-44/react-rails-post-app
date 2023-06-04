@@ -1,10 +1,12 @@
 import { SetStateAction, useState } from "react";
 import { ReturnToIndex } from "../share/ReturnToIndex";
 import { createPost } from "../../apis/posts";
+import { useNavigate } from "react-router-dom";
 
 export const New = () => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
+  const navigate = useNavigate();
 
   const handleChangeTitle = (e: {
     target: { value: SetStateAction<string> };
@@ -18,9 +20,10 @@ export const New = () => {
     setContent(e.target.value);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     try {
-      await createPost({ title: title, content: content });
+      createPost({ title: title, content: content });
+      navigate("/posts/index");
     } catch (error) {
       console.error(error);
     }

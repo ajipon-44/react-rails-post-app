@@ -61,24 +61,12 @@ export const useDeletePost = () => {
 };
 
 export const useEditPost = () => {
-  const navigate = useNavigate();
-
   const editPost = async (postId: string, post: Post) => {
     try {
       await axios.put(postEdit(postId), post);
-      navigate("/posts/index");
     } catch (error) {
       console.error(error);
     }
   };
   return editPost;
 };
-
-// export const editPost = async (postId: string) => {
-//   try {
-//     const response = await axios.put(postEdit(postId));
-//     return response;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };

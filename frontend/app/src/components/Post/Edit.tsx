@@ -2,6 +2,7 @@ import { ReturnToIndex } from "../share/ReturnToIndex";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchPost, useEditPost } from "../../apis/posts";
+import { useNavigate } from "react-router-dom";
 
 export const Edit = () => {
   interface Post {
@@ -12,6 +13,7 @@ export const Edit = () => {
   const { postIdParams } = useParams();
   const [post, setPost] = useState<Post>();
   const editPost = useEditPost();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (postIdParams) {
@@ -46,6 +48,7 @@ export const Edit = () => {
         content,
       };
       editPost(postIdParams, updatedPost);
+      navigate("/posts/index");
     } else {
       console.log("title or content is undefined");
     }
