@@ -56,21 +56,45 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
 	test "update should be invalid without title" do
 		title = ""
 		content = @sample.content
-		put post_path(@sample), params: { post: {
+		patch post_path(@sample), params: { post: {
 			title: title,
-			content: @sample.content
+			content: content
 		} }
 		@sample.reload
 
-		assert_equal title, @sample.title
-		assert_equal content, @sample.content
+    assert_not_equal title, @sample.title
+    assert_equal "sample_title", @sample.title
+    assert_equal content, @sample.content
 	end
 
-	# test "should be invalid without content" do
-	# end
+	test "should be invalid without content" do
+		title = @sample.title
+		content = ""
+		patch post_path(@sample), params: { post: {
+			title: title,
+			content: content
+		} }
+		@sample.reload
 
-	# test "should be invalid without title and content" do
-	# end
+    assert_not_equal content, @sample.content
+    assert_equal "sample_content", @sample.content
+    assert_equal title, @sample.title
+	end
+
+	test "should be invalid without title and content" do
+		title = ""
+		content = ""
+		patch post_path(@sample), params: { post: {
+			title: title,
+			content: content
+		} }
+		@sample.reload
+
+    assert_not_equal title, @sample.title
+    assert_not_equal content, @sample.content
+    assert_equal "sample_title", @sample.title
+    assert_equal "sample_content", @sample.content
+	end
 
 	test "should update a post" do
 		title = "edit title"

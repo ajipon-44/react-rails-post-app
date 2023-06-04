@@ -29,7 +29,7 @@ class PostsController < ApplicationController
 		if @post.update(post_params)
 			render json: { post: @post }
 		else
-			render json: { status: "ERROR", post: post.errors }
+			render json: { status: "ERROR", post: @post.errors }
 		end
 	end
 
