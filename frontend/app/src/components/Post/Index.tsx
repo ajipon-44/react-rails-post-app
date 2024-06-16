@@ -31,15 +31,17 @@ export const Index = () => {
               <th>編集</th>
             </tr>
           </thead>
-          <tbody>
-            {posts.map((post) => {
-              return (
-                <tr key={post.id}>
-                  <TableRecord post={post} />
-                </tr>
-              );
-            })}
-          </tbody>
+          {posts.length > 0 && (
+            <tbody>
+              {posts.map((post) => {
+                return (
+                  <tr key={post.id}>
+                    <TableRecord post={post} />
+                  </tr>
+                );
+              })}
+            </tbody>
+          )}
         </table>
       </div>
     </div>
